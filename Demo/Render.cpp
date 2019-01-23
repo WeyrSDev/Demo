@@ -15,9 +15,10 @@ namespace Game {
 	}
 	void RenderingGame::Initialize()
 	{
-		
+#if defined(DEBUG) || defined(_DEBUG)
 		m_FrameRateView = new FramesPerSecond(*this);
 		m_EngineComponents.push_back(m_FrameRateView);
+#endif
 		Engine::Initialize();
 	}
 	void RenderingGame::Update(const EngineTime& engineTime)
