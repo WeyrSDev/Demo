@@ -4,6 +4,8 @@
 using namespace vEngine;
 
 namespace vEngine {
+	class Keyboard;
+	class Mouse;
 	class FramesPerSecond;
 }
 
@@ -21,6 +23,9 @@ namespace Game {
 	private:
 		static const XMVECTORF32 BackgroundColor;
 	private:
+		LPDIRECTINPUT8 m_DirectInput;
+		Keyboard* m_Keyboard;
+		Mouse* m_Mouse;
 		FramesPerSecond* m_FrameRateView;
 	};
 }
