@@ -5,7 +5,7 @@ namespace Game {
 	const XMVECTORF32 RenderingGame::BackgroundColor = { 0.392f, 0.584f, 0.929f, 1.0f };
 
 	RenderingGame::RenderingGame(HINSTANCE instance, const std::wstring& windowClass, const std::wstring& windowTitle, int showCommand) :
-		Engine(instance, windowClass, windowTitle, showCommand)
+		Engine(instance, windowClass, windowTitle, showCommand), m_FrameRateView(nullptr)
 	{
 		m_DepthStencilBufferEnabled = true;
 		m_MultiSamplingEnabled = true;
@@ -15,6 +15,9 @@ namespace Game {
 	}
 	void RenderingGame::Initialize()
 	{
+		
+		m_FrameRateView = new FramesPerSecond(*this);
+		m_EngineComponents.push_back(m_FrameRateView);
 		Engine::Initialize();
 	}
 	void RenderingGame::Update(const EngineTime& engineTime)
@@ -34,5 +37,10 @@ namespace Game {
 		{
 			throw EngineException("ID3D11SwapChain::Present() failed...ShitBags", hr);
 		}
+	}
+	void RenderingGame::Shutdown()
+	{
+		DeleteObject(m_FrameRateView);
+		Engine::Shutdown();
 	}
 }

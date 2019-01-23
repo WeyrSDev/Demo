@@ -1,7 +1,11 @@
 #pragma once
-#include "Engine.h"
+#include "stdafx.h"
 
 using namespace vEngine;
+
+namespace vEngine {
+	class FramesPerSecond;
+}
 
 namespace Game {
 	class RenderingGame : public Engine {
@@ -12,7 +16,11 @@ namespace Game {
 		virtual void Initialize();
 		virtual void Update(const EngineTime& engineTime);
 		virtual void Draw(const EngineTime& engineTime);
+	protected:
+		virtual void Shutdown() override;
 	private:
 		static const XMVECTORF32 BackgroundColor;
+	private:
+		FramesPerSecond* m_FrameRateView;
 	};
 }
