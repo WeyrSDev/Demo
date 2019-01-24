@@ -6,6 +6,7 @@ using namespace vEngine;
 namespace vEngine {
 	class Keyboard;
 	class Mouse;
+	class XBoxGamePad;
 	class FramesPerSecond;
 }
 
@@ -26,6 +27,7 @@ namespace Game {
 		LPDIRECTINPUT8 m_DirectInput;
 		Keyboard* m_Keyboard;
 		Mouse* m_Mouse;
+		XBoxGamePad* m_XBoxPad;
 		FramesPerSecond* m_FrameRateView;
 	};
 }
