@@ -8,6 +8,7 @@ namespace vEngine {
 	class Mouse;
 	class XBoxGamePad;
 	class FramesPerSecond;
+	class FirstPersonCamera;
 }
 
 namespace Game {
@@ -29,5 +30,6 @@ namespace Game {
 		Mouse* m_Mouse;
 		XBoxGamePad* m_XBoxPad;
 		FramesPerSecond* m_FrameRateView;
+		FirstPersonCamera* m_FPS;
 	};
 }

@@ -33,11 +33,16 @@ namespace Game {
 		m_XBoxPad = new XBoxGamePad(*this);
 		m_EngineComponents.push_back(m_XBoxPad);
 		m_Services.AddService(XBoxGamePad::TypeIdClass(), m_XBoxPad);
+
+		m_FPS = new FirstPersonCamera(*this);
+		m_EngineComponents.push_back(m_FPS);
+		m_Services.AddService(Camera::TypeIdClass(), m_FPS);
 //#if defined(DEBUG) || defined(_DEBUG)
 		m_FrameRateView = new FramesPerSecond(*this);
 		m_EngineComponents.push_back(m_FrameRateView);
 //#endif
 		Engine::Initialize();
+		m_FPS->SetPosition(0.0f, 0.0f, 10.0f);
 	}
 	void RenderingGame::Update(const EngineTime& engineTime)
 	{
@@ -68,6 +73,7 @@ namespace Game {
 		DeleteObject(m_Keyboard);
 		DeleteObject(m_Mouse);
 		DeleteObject(m_XBoxPad);
+		DeleteObject(m_FPS);
 		ReleaseObject(m_DirectInput);
 		Engine::Shutdown();
 	}
