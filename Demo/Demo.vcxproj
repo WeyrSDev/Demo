@@ -174,10 +174,12 @@
   <ItemGroup>
     <ClInclude Include="Demo.h" />
     <ClInclude Include="Render.h" />
+    <ClInclude Include="TriangleDemo.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Demo.cpp" />
     <ClCompile Include="Render.cpp" />
+    <ClCompile Include="TriangleDemo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

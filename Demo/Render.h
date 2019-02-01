@@ -9,9 +9,11 @@ namespace vEngine {
 	class XBoxGamePad;
 	class FramesPerSecond;
 	class FirstPersonCamera;
+	class RenderStateHelper;
 }
 
 namespace Game {
+	class TriangleDemo;
 	class RenderingGame : public Engine {
 	public:
 		RenderingGame(HINSTANCE instance, const std::wstring& windowClass, const std::wstring& windowTitle, int showCommand);
@@ -30,6 +32,7 @@ namespace Game {
 		Mouse* m_Mouse;
 		XBoxGamePad* m_XBoxPad;
 		FramesPerSecond* m_FrameRateView;
-		FirstPersonCamera* m_FPS;
+		FirstPersonCamera* m_FPSCamera;
+		TriangleDemo* m_Demo;
 	};
 }

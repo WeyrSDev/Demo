@@ -1,11 +1,12 @@
 #include "stdafx.h"
 #include "Render.h"
-
+#include "TriangleDemo.h"
 namespace Game {
 	const XMVECTORF32 RenderingGame::BackgroundColor = { 0.392f, 0.584f, 0.929f, 1.0f };
 
 	RenderingGame::RenderingGame(HINSTANCE instance, const std::wstring& windowClass, const std::wstring& windowTitle, int showCommand) :
-		Engine(instance, windowClass, windowTitle, showCommand), m_FrameRateView(nullptr), m_DirectInput(nullptr), m_Keyboard(nullptr), m_Mouse(nullptr), m_XBoxPad(nullptr)
+		Engine(instance, windowClass, windowTitle, showCommand), m_FrameRateView(nullptr), m_DirectInput(nullptr), m_Keyboard(nullptr),
+		m_Mouse(nullptr), m_XBoxPad(nullptr), m_Demo(nullptr)
 	{
 		m_DepthStencilBufferEnabled = true;
 		m_MultiSamplingEnabled = true;
@@ -34,15 +35,18 @@ namespace Game {
 		m_EngineComponents.push_back(m_XBoxPad);
 		m_Services.AddService(XBoxGamePad::TypeIdClass(), m_XBoxPad);
 
-		m_FPS = new FirstPersonCamera(*this);
-		m_EngineComponents.push_back(m_FPS);
-		m_Services.AddService(Camera::TypeIdClass(), m_FPS);
+		m_FPSCamera = new FirstPersonCamera(*this);
+		m_EngineComponents.push_back(m_FPSCamera);
+		m_Services.AddService(Camera::TypeIdClass(), m_FPSCamera);
 //#if defined(DEBUG) || defined(_DEBUG)
 		m_FrameRateView = new FramesPerSecond(*this);
 		m_EngineComponents.push_back(m_FrameRateView);
 //#endif
+		m_Demo = new TriangleDemo(*this, *m_FPSCamera);
+		m_EngineComponents.push_back(m_Demo);
+
 		Engine::Initialize();
-		m_FPS->SetPosition(0.0f, 0.0f, 10.0f);
+		m_FPSCamera->SetPosition(0.0f, 0.0f, 10.0f);
 	}
 	void RenderingGame::Update(const EngineTime& engineTime)
 	{
@@ -69,11 +73,12 @@ namespace Game {
 	}
 	void RenderingGame::Shutdown()
 	{
+		DeleteObject(m_Demo);
 		DeleteObject(m_FrameRateView);
 		DeleteObject(m_Keyboard);
 		DeleteObject(m_Mouse);
 		DeleteObject(m_XBoxPad);
-		DeleteObject(m_FPS);
+		DeleteObject(m_FPSCamera);
 		ReleaseObject(m_DirectInput);
 		Engine::Shutdown();
 	}
