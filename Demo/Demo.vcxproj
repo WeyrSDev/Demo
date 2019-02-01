@@ -172,11 +172,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CubeDemo.h" />
     <ClInclude Include="Demo.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="TriangleDemo.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CubeDemo.cpp" />
     <ClCompile Include="Demo.cpp" />
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="TriangleDemo.cpp" />

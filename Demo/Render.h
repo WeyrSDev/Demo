@@ -14,6 +14,7 @@ namespace vEngine {
 
 namespace Game {
 	class TriangleDemo;
+	class CubeDemo;
 	class RenderingGame : public Engine {
 	public:
 		RenderingGame(HINSTANCE instance, const std::wstring& windowClass, const std::wstring& windowTitle, int showCommand);
@@ -33,6 +34,8 @@ namespace Game {
 		XBoxGamePad* m_XBoxPad;
 		FramesPerSecond* m_FrameRateView;
 		FirstPersonCamera* m_FPSCamera;
-		TriangleDemo* m_Demo;
+		RenderStateHelper* m_RenderStateHelper;
+		//TriangleDemo* m_Demo;
+		CubeDemo* m_Demo;
 	};
 }

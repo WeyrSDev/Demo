@@ -1,12 +1,13 @@
 #include "stdafx.h"
 #include "Render.h"
 #include "TriangleDemo.h"
+#include "CubeDemo.h"
 namespace Game {
 	const XMVECTORF32 RenderingGame::BackgroundColor = { 0.392f, 0.584f, 0.929f, 1.0f };
 
 	RenderingGame::RenderingGame(HINSTANCE instance, const std::wstring& windowClass, const std::wstring& windowTitle, int showCommand) :
 		Engine(instance, windowClass, windowTitle, showCommand), m_FrameRateView(nullptr), m_DirectInput(nullptr), m_Keyboard(nullptr),
-		m_Mouse(nullptr), m_XBoxPad(nullptr), m_Demo(nullptr)
+		m_Mouse(nullptr), m_XBoxPad(nullptr), m_RenderStateHelper(nullptr), m_Demo(nullptr)
 	{
 		m_DepthStencilBufferEnabled = true;
 		m_MultiSamplingEnabled = true;
@@ -42,7 +43,10 @@ namespace Game {
 		m_FrameRateView = new FramesPerSecond(*this);
 		m_EngineComponents.push_back(m_FrameRateView);
 //#endif
-		m_Demo = new TriangleDemo(*this, *m_FPSCamera);
+		//m_Demo = new TriangleDemo(*this, *m_FPSCamera);
+		//m_EngineComponents.push_back(m_Demo);
+
+		m_Demo = new CubeDemo(*this, *m_FPSCamera);
 		m_EngineComponents.push_back(m_Demo);
 
 		Engine::Initialize();
@@ -63,6 +67,10 @@ namespace Game {
 		m_Direct3DDeviceContext->ClearDepthStencilView(m_DepthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
 		Engine::Draw(engineTime);
+
+		//m_RenderStateHelper->SaveAll();
+		//m_FrameRateView->Draw(engineTime);
+		//m_RenderStateHelper->RestoreAll();
 
 		HRESULT hr = m_SwapChain->Present(0, 0);
 
