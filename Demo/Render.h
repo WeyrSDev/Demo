@@ -8,7 +8,7 @@ namespace vEngine {
 	class Mouse;
 	class XBoxGamePad;
 	class FramesPerSecond;
-	class FirstPersonCamera;
+	class OrthographicCamera;
 	class RenderStateHelper;
 	class Grid;
 }
@@ -34,7 +34,7 @@ namespace Game {
 		Mouse* m_Mouse;
 		XBoxGamePad* m_XBoxPad;
 		FramesPerSecond* m_FrameRateView;
-		FirstPersonCamera* m_FPSCamera;
+		OrthographicCamera* m_FPSCamera;
 		RenderStateHelper* m_RenderStateHelper;
 		Grid* m_Grid;
 		//TriangleDemo* m_Demo;

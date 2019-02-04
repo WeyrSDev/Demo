@@ -36,7 +36,7 @@ namespace Game {
 		m_EngineComponents.push_back(m_XBoxPad);
 		m_Services.AddService(XBoxGamePad::TypeIdClass(), m_XBoxPad);
 
-		m_FPSCamera = new FirstPersonCamera(*this);
+		m_FPSCamera = new OrthographicCamera(*this);
 		m_EngineComponents.push_back(m_FPSCamera);
 		m_Services.AddService(Camera::TypeIdClass(), m_FPSCamera);
 //#if defined(DEBUG) || defined(_DEBUG)
