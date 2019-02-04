@@ -6,7 +6,7 @@ namespace Game {
 	const XMVECTORF32 RenderingGame::BackgroundColor = { 0.392f, 0.584f, 0.929f, 1.0f };
 
 	RenderingGame::RenderingGame(HINSTANCE instance, const std::wstring& windowClass, const std::wstring& windowTitle, int showCommand) :
-		Engine(instance, windowClass, windowTitle, showCommand), m_FrameRateView(nullptr), m_DirectInput(nullptr), m_Keyboard(nullptr),
+		Engine(instance, windowClass, windowTitle, showCommand), m_FrameRateView(nullptr), m_Grid(nullptr), m_DirectInput(nullptr), m_Keyboard(nullptr),
 		m_Mouse(nullptr), m_XBoxPad(nullptr), m_RenderStateHelper(nullptr), m_Demo(nullptr)
 	{
 		m_DepthStencilBufferEnabled = true;
@@ -43,17 +43,20 @@ namespace Game {
 		m_FrameRateView = new FramesPerSecond(*this);
 		m_EngineComponents.push_back(m_FrameRateView);
 //#endif
-		//m_Demo = new TriangleDemo(*this, *m_FPSCamera);
-		//m_EngineComponents.push_back(m_Demo);
+		m_Grid = new Grid(*this, *m_FPSCamera);
+		m_EngineComponents.push_back(m_Grid);
 
 		m_Demo = new CubeDemo(*this, *m_FPSCamera);
 		m_EngineComponents.push_back(m_Demo);
+
+		m_RenderStateHelper = new RenderStateHelper(*this);
 
 		Engine::Initialize();
 		m_FPSCamera->SetPosition(0.0f, 0.0f, 10.0f);
 	}
 	void RenderingGame::Update(const EngineTime& engineTime)
 	{
+		m_FrameRateView->Update(engineTime);
 		if (m_Keyboard->WasKeyPressedThisFrame(DIK_ESCAPE) || m_XBoxPad->WasButtonPressedThisFrame(PadButtons::Back))
 		{
 			Exit();
@@ -68,9 +71,9 @@ namespace Game {
 
 		Engine::Draw(engineTime);
 
-		//m_RenderStateHelper->SaveAll();
-		//m_FrameRateView->Draw(engineTime);
-		//m_RenderStateHelper->RestoreAll();
+		m_RenderStateHelper->SaveAll();
+		m_FrameRateView->Draw(engineTime);
+		m_RenderStateHelper->RestoreAll();
 
 		HRESULT hr = m_SwapChain->Present(0, 0);
 
@@ -87,6 +90,7 @@ namespace Game {
 		DeleteObject(m_Mouse);
 		DeleteObject(m_XBoxPad);
 		DeleteObject(m_FPSCamera);
+		DeleteObject(m_Grid);
 		ReleaseObject(m_DirectInput);
 		Engine::Shutdown();
 	}

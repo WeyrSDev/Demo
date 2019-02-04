@@ -10,6 +10,7 @@ namespace vEngine {
 	class FramesPerSecond;
 	class FirstPersonCamera;
 	class RenderStateHelper;
+	class Grid;
 }
 
 namespace Game {
@@ -35,6 +36,7 @@ namespace Game {
 		FramesPerSecond* m_FrameRateView;
 		FirstPersonCamera* m_FPSCamera;
 		RenderStateHelper* m_RenderStateHelper;
+		Grid* m_Grid;
 		//TriangleDemo* m_Demo;
 		CubeDemo* m_Demo;
 	};
